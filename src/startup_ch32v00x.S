@@ -6,7 +6,7 @@
 ;* Description        : vector table for eclipse toolchain.
 ;*********************************************************************************
 ;* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-;* Attention: This software (modified or not) and binary are used for 
+;* Attention: This software (modified or not) and binary are used for
 ;* microcontroller manufactured by Nanjing Qinheng Microelectronics.
 ;*******************************************************************************/
 
@@ -153,10 +153,10 @@ handle_reset:
 2:
     li t0, 0x80
     csrw mstatus, t0
-  
+
     li t0, 0x3
     csrw 0x804, t0
-  
+
     la t0, _start
     ori t0, t0, 3
     csrw mtvec, t0
