@@ -1,4 +1,6 @@
-includes('xmake.toolchain.lua')
+includes('xpack.lua')
+
+xpack_toolchain('gcc-riscv', 'riscv-none-elf-gcc@14.2.0-3.1')
 
 set_toolchains('gcc-riscv')
 
