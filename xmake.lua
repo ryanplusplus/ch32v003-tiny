@@ -1,7 +1,7 @@
 includes('xpack.lua')
+includes('openocd.lua')
 
 xpack_toolchain('gcc-riscv', 'riscv-none-elf-gcc@14.2.0-3.1')
-
 set_toolchains('gcc-riscv')
 
 add_cxflags(
@@ -26,7 +26,7 @@ add_ldflags(
   '-nostartfiles',
   '-T ch32v00x.ld',
   '-Wl,--gc-sections',
-  '-Wl,-Map,$(buildir)/$(plat)/$(arch)/$(mode)/ch32v003.map',
+  '-Wl,-Map,$(builddir)/$(plat)/$(arch)/$(mode)/ch32v003.map',
   '--specs=nano.specs',
   '--specs=nosys.specs',
   { force = true }
@@ -39,7 +39,9 @@ target('tiny')
 
 target('ch32v003') do
   set_kind('binary')
+  set_extension('.elf')
   add_deps('tiny')
   add_files('src/*.c')
   add_includedirs('src')
+  add_rules('openocd-flash')
 end
