@@ -26,7 +26,7 @@ add_ldflags(
   '-nostartfiles',
   '-T ch32v00x.ld',
   '-Wl,--gc-sections',
-  '-Wl,-Map,$(builddir)/$(plat)/$(arch)/$(mode)/ch32v003.map',
+  '-Wl,-Map,$(builddir)/$(plat)/$(arch)/$(mode)/target.map',
   '--specs=nano.specs',
   '--specs=nosys.specs',
   { force = true }
@@ -37,11 +37,17 @@ target('tiny')
   add_files('lib/tiny/src/*.c')
   add_includedirs('lib/tiny/include', { public = true })
 
-target('ch32v003') do
+target('target') do
   set_kind('binary')
   set_extension('.elf')
   add_deps('tiny')
   add_files('src/*.c')
   add_includedirs('src')
-  add_rules('openocd-flash')
+end
+
+target('upload') do
+  set_kind('phony')
+  add_deps('target')
+  add_rules('openocd-upload')
+  set_values('binfile_target', 'target')
 end

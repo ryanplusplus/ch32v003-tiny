@@ -1,7 +1,14 @@
-rule('openocd-flash') do
+rule('openocd-upload') do
   on_run(function(target)
-    import('core.base.option')
-    local binfile = target:targetfile()
+    local binfile do
+      local binfile_target = target:values('binfile_target')
+      if binfile_target then
+        binfile = target:dep(binfile_target):targetfile()
+      else
+        binfile = target:targetfile()
+      end
+    end
+
     print('Flashing ' .. binfile .. ' using OpenOCD...')
   end)
 end
