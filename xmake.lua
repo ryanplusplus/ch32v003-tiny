@@ -32,10 +32,11 @@ add_ldflags(
   { force = true }
 )
 
-target('tiny')
+target('tiny') do
   set_kind('static')
   add_files('lib/tiny/src/*.c')
   add_includedirs('lib/tiny/include', { public = true })
+end
 
 target('target') do
   set_kind('binary')
