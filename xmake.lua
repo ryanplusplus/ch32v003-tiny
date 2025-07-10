@@ -49,5 +49,5 @@ target('upload') do
   set_kind('phony')
   add_deps('target')
   add_rules('openocd-upload')
-  set_values('binfile_target', 'target')
+  set_values('upload-binfile-target', 'target')
 end
