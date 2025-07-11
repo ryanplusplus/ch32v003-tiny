@@ -1,3 +1,6 @@
 [submodule "lib/tiny"]
 	path = lib/tiny
 	url = https://github.com/ryanplusplus/tiny
+[submodule "lib/ch32v003"]
+	path = lib/ch32v003
+	url = https://github.com/maxgerhardt/ch32v003-vanilla-gcc

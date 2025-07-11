@@ -4,6 +4,12 @@ includes('openocd.lua')
 xpack_toolchain('gcc-riscv', 'riscv-none-elf-gcc@14.2.0-3.1')
 set_toolchains('gcc-riscv')
 
+add_asflags(
+  '-march=rv32ec_zicsr',
+  '-mabi=ilp32e',
+  { force = true }
+)
+
 add_cxflags(
   '-march=rv32ec_zicsr',
   '-mabi=ilp32e',
@@ -21,7 +27,7 @@ add_cflags(
 )
 
 add_ldflags(
-  '-march=rv32ec',
+  '-march=rv32ec_zicsr',
   '-mabi=ilp32e',
   '-nostartfiles',
   '-T ch32v00x.ld',
@@ -42,6 +48,12 @@ target('target') do
   set_kind('binary')
   set_extension('.elf')
   add_deps('tiny')
+  add_files('lib/ch32v003/core_riscv.c')
+  add_files('lib/ch32v003/debug.c', { cflags = { '-Wno-unused-parameter' } })
+  add_files('lib/ch32v003/startup_ch32v00x.S')
+  add_files('lib/ch32v003/system_ch32v00x.c')
+  add_files('lib/ch32v003/ch32v00x_*.c')
+  add_includedirs('lib/ch32v003')
   add_files('src/*.c')
   add_includedirs('src')
 end
